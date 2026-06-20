@@ -1,26 +1,29 @@
-# Outlook PDF Archiver & Automation Pipeline
+# Outlook PDF Archiver & Debit Note Automation Pipeline
 
 ## Project Overview
-An automated Python-based data pipeline designed to streamline the extraction, processing, and archiving of project documentation and financial Debit Notes directly from Microsoft Outlook. This script eliminates manual interaction with email clients, enforces strict file-naming conventions, and automatically consolidates fragmented PDF attachments into unified, audit-ready records.
+An advanced Python automation tool designed for Cost Control operations to streamline the verification, archiving, and dashboard integration of Debit Notes directly from Microsoft Outlook. The pipeline automates the generation of approval cover sheets via programmatic screenshots, dynamically prepends them to their corresponding financial PDFs, and routes the finalized documents to an integrated central directory synchronized with Microsoft Excel dashboards for single-click cross-verification.
 
 ## Problem Statement
-In large-scale construction cost control, manually downloading Debit Notes, verifying payment certificates, and tracking individual email attachments introduces significant administrative latency and a 15% higher risk of human error or document misplacement.
+In mega-project cost control, manually reconciling approved emails with Debit Note PDFs and updating tracking ledgers introduces severe processing delays. Without systemic synchronization, senior management lacks immediate, auditable access to validation cover sheets directly from financial summary reports, creating data silos and slowing down the audit workflow.
 
 ## Solution & Features
-* **Automated Outlook Integration:** Interfaces with the Outlook MAPI namespace to scan targeted folders for specific project correspondence.
-* **Smart PDF Extraction:** Identifies and extracts relevant PDF attachments based on custom structural criteria and date ranges.
-* **Automated PDF Merging:** Bundles multiple separate transaction pages and attachments into a single, comprehensive PDF document per account reference.
-* **Standardized Document Archival:** Enforces consistent nomenclature across all local directories, automatically logging timestamps and tracking metadata to support project audits.
+* **Programmatic Approval Capturing:** Automatically scans Outlook for approved Debit Note emails and generates programmatic screenshots to serve as the official document cover page.
+* **Smart Document Matching:** Searches and identifies the local PDF file matching the exact name and reference number found in the verified email.
+* **Dynamic PDF Prepending:** Automatically inserts the email approval screenshot as the first page (Cover) of the target Debit Note PDF, ensuring audit-ready documentation.
+* **Excel Dashboard Synchronization:** Routes the fully compiled PDF directly into the destination directory linked with Excel tracking systems, enabling stakeholders to instantly open and verify the approved PDF with a single click from the dashboard.
+* **Terminal Output Logging:** Prints real-time tracking metrics directly to the execution terminal, displaying the exact email profiles and extracted Debit Note reference numbers being processed.
 
 ## Technology Stack
 * **Language:** Python
 * **Core Libraries:** 
   * `pywin32` (win32com.client for Microsoft Outlook API automation)
-  * `PyPDF2` / `pypdf` (for structural data manipulation and PDF merging workflows)
-  * `os` & `sys` (for local file system control and pipeline management)
+  * `pypdf` / `PyPDF2` (for dynamic page insertion and PDF manipulation)
+  * `Pillow` / `pyautogui` (for programmatic approval screenshot generation)
+  * `os` & `sys` (for system directory and local server path management)
 
 ## Operational Workflow
-1. **Connect:** Initializes a secure session with the active desktop Outlook instance.
-2. **Scan:** Queries the pre-defined inbox/folder for unseen or flagged cost-control correspondence.
-3. **Process:** Downloads localized attachments, checks data integrity, and applies programmatic merging rules to related PDF pages.
-4. **Archive:** Moves the processed emails to a completed folder within Outlook while saving the newly consolidated PDF documents to the central server directory.
+1. **Fetch & Scan:** Connects to the active Outlook instance to scan verified correspondence for Debit Notes and their unique reference numbers.
+2. **Capture Cover:** Takes an automated screenshot of the approved email to establish the official cover page.
+3. **Match & Prepend:** Locates the matching local Debit Note PDF by name and inserts the captured screenshot as the first page.
+4. **Data Integration:** Saves the completed record directly into the source folder queried by the Excel monitoring dashboard to enable dynamic hyperlink verification.
+5. **Terminal Review:** Displays active processing status and compiled figures directly on the terminal screen for immediate verification.
